@@ -6,7 +6,7 @@ boolean bobUp = true;
 
 void setup()
 {
-  size(400,400);
+  size(410,400);
   background(79,66,181);
   frameRate(60);
 }
