@@ -5,26 +5,38 @@ int horizontalMovement = 0;
 int verticalMovement = 0;
 boolean leftButton;
 boolean rightButton;
+boolean slideSwitch;
+int topTouch;
+int bottomTouch;
 int light;
 
 public void setup() {
   size(600, 400);
-  arduino = new Arduino(this, Arduino.list()[0], 57600); //change the [0] to a [1] or [2] etc. if your program doesn't work
+  arduino = new Arduino(this, Arduino.list()[0], 57600);
 }
 
 public void draw() {
   background(135, 206, 235);
+  fill(0,154,23);
+  rect(0,350,600,400);
   light = arduino.analogRead(5);
   leftButton = (arduino.analogRead(1) > 0);
   rightButton = (arduino.analogRead(6) > 0);
+  topTouch = (arduino.analogRead(9));
+  bottomTouch = (arduino.analogRead(11));
+  slideSwitch = (arduino.analogRead(3) > 0);
+  
   for(int i = 0; i < 16; i++)
   System.out.print(i+" "+arduino.analogRead(i) + "\t");
   System.out.println();
   
+  
   fill(180);
-  ellipse(300 + horizontalMovement, 170, 200, 80);
+  ellipse(300 + horizontalMovement, 170 + verticalMovement, 200, 80);
   fill(200, 200, light);
-  ellipse(300 + horizontalMovement, 145, 100, 60);
+  ellipse(300 + horizontalMovement, 145 + verticalMovement, 100, 60);
+    
+  verticalMovement = (bottomTouch - topTouch) / 4;
   
   if (leftButton == true) {
     horizontalMovement += 5;
@@ -40,5 +52,12 @@ public void draw() {
   
   if (rightButton == true) {
     horizontalMovement -= 5;
+  }
+  
+  if (slideSwitch == true) {
+    for (int i = 170; i <= 370; i += 5) {
+    triangle(300 + horizontalMovement, 170 + verticalMovement, 200 + horizontalMovement, i + verticalMovement, 400 + horizontalMovement, i + verticalMovement);
+    
+    }
   }
 }
