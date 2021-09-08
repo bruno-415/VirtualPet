@@ -55,9 +55,9 @@ public void draw() {
   }
   
   if (slideSwitch == true) {
-    for (int i = 170; i <= 370; i += 5) {
-    triangle(300 + horizontalMovement, 170 + verticalMovement, 200 + horizontalMovement, i + verticalMovement, 400 + horizontalMovement, i + verticalMovement);
-    
+    triangle(300 + horizontalMovement, 170 + verticalMovement, 200 + horizontalMovement, y + verticalMovement, 400 + horizontalMovement, y + verticalMovement);
+    if (y < 200) {
+      y -= 4;
     }
   }
 }
