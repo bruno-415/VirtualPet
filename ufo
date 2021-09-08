@@ -9,6 +9,7 @@ boolean slideSwitch;
 int topTouch;
 int bottomTouch;
 int light;
+int y = 0;
 
 public void setup() {
   size(600, 400);
@@ -29,6 +30,14 @@ public void draw() {
   for(int i = 0; i < 16; i++)
   System.out.print(i+" "+arduino.analogRead(i) + "\t");
   System.out.println();
+  
+  fill(200, 200, light);
+  if (slideSwitch == true) {
+    triangle(300 + horizontalMovement, 170 + verticalMovement, 200 + horizontalMovement, 170 + verticalMovement + y, 400 + horizontalMovement, 170 + verticalMovement + y);
+    if (y < 200) {
+      y += 4;
+    }
+  }
   
   
   fill(180);
@@ -54,10 +63,5 @@ public void draw() {
     horizontalMovement -= 5;
   }
   
-  if (slideSwitch == true) {
-    triangle(300 + horizontalMovement, 170 + verticalMovement, 200 + horizontalMovement, y + verticalMovement, 400 + horizontalMovement, y + verticalMovement);
-    if (y < 200) {
-      y -= 4;
-    }
-  }
+  
 }
